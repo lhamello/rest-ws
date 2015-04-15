@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:view contentType="text/html">
+		<h:head>
+			<title>#{msg['app.title']}</title>
+		</h:head>
+	
+		<h:body>
+			<!-- LAYOUT -->
+			<p:layout id="layout" fullPage="true" gutter="0">
+				<p:layoutUnit id="north" position="north" size="62" spacing="0" resizable="false" closable="false" gutter="0">
+					LOGO!!!				
+				</p:layoutUnit>
+				
+				<p:layoutUnit id="west" position="west" size="180" gutter="0">
+					MENU!!!
+				</p:layoutUnit>
+				
+				<p:layoutUnit id="center" position="center" gutter="0">
+					<ui:insert name="body" />
+				</p:layoutUnit>
+			</p:layout>
+		</h:body>
+	
+		<ui:insert name="dialogs" />
+	
+	</f:view>
+</html>
