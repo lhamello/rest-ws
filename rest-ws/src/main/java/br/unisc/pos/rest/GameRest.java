@@ -1,6 +1,7 @@
 package br.unisc.pos.rest;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.Response;
 import br.unisc.pos.game.Game;
 import br.unisc.pos.game.GameService;
 
-@Path("v1.0/")
+@Path("1.0/")
 @Produces("application/json;charset=utf-8")
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
@@ -73,7 +74,24 @@ public class GameRest implements Serializable {
     @GET
     @Path("games")
     public List<Game> listarTodos(@Context Request request) {
-        return gameService.listar(new Game());
+        Game game = new Game();
+        game.setId(1L);
+        game.setNome("PES 2015");
+        game.setPlataforma("PS4");
+        game.setPreco(179.99);
+        
+        Game game1 = new Game();
+        game1.setId(1L);
+        game1.setNome("PES 2015");
+        game1.setPlataforma("PS3");
+        game1.setPreco(109.99);
+        
+        List<Game> games = new ArrayList<>();
+        games.add(0, game);
+        games.add(1, game1);
+        
+        //return gameService.listar(new Game());
+        return games;
     }
     
 }
