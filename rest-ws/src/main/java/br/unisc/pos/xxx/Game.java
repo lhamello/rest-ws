@@ -1,4 +1,4 @@
-package br.unisc.pos.game;
+package br.unisc.pos.xxx;
 
 import java.io.Serializable;
 

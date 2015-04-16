@@ -18,8 +18,8 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
-import br.unisc.pos.game.Game;
-import br.unisc.pos.game.GameService;
+import br.unisc.pos.xxx.Game;
+import br.unisc.pos.xxx.GameService;
 
 @Path("1.0/")
 @Produces("application/json;charset=utf-8")
