@@ -38,7 +38,7 @@ public class Produto implements Serializable {
 	@NotNull
 	private Double preco;
 
-	@Column(name = "DESCRICAO", length = 4000, nullable = false)
+	@Column(name = "OBSERVACAO", length = 4000, nullable = false)
 	@Length(max = 4000)
 	private String observacao;
 
