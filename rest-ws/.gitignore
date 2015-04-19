@@ -3,3 +3,8 @@
 /.project
 /.settings
 /.gitignore
+target
+.settings/*
+!.settings/.jsdtscope
+.project
+.classpath
