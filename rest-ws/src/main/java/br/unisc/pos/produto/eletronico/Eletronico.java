@@ -1,7 +1,7 @@
 package br.unisc.pos.produto.eletronico;
 
 import br.unisc.pos.produto.Produto;
-
+ 
 public class Eletronico extends Produto {
 
 	private static final long serialVersionUID = 1L;
