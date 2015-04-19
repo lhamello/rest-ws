@@ -29,6 +29,7 @@ public class GameRest implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    @SuppressWarnings("unused")
     @Inject
     private GameService gameService;
     
