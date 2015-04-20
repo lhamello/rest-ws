@@ -86,7 +86,7 @@ public class GameRest implements Serializable {
         game1.setNome("PES 2015");
         game1.setPlataforma("PS3");
         game1.setPreco(109.99);
-        
+         
         List<Game> games = new ArrayList<>();
         games.add(0, game);
         games.add(1, game1);
