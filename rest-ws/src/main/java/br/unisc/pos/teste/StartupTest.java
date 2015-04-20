@@ -1,10 +1,12 @@
-package br.unisc.pos.xxx;
+package br.unisc.pos.teste;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
+import br.unisc.pos.produto.Produto;
+import br.unisc.pos.produto.eletronico.Eletronico;
 import br.unisc.pos.produto.eletronico.Voltagem;
 import br.unisc.pos.produto.eletronico.computador.Computador;
 import br.unisc.pos.produto.eletronico.computador.ComputadorService;
@@ -70,48 +72,47 @@ public class StartupTest {
 	
 	private Computador criarComputador(String descricao, String marca, double preco, SistemaOperacional so, String observacao, Voltagem voltagem) {
 	    Computador computador = new Computador();
-	    
-	    computador.setDescricao(descricao);
-	    computador.setMarca(marca);
-	    computador.setPreco(preco);
 	    computador.setSistemaOperacional(so);
-	    computador.setObservacao(observacao);
-	    computador.setVoltagem(voltagem);
 	    
-	    return computador;
+	    return (Computador) this.criarEletronico(computador, marca, voltagem, descricao, observacao, preco);
+	}
+	
+	private Eletronico criarEletronico(Eletronico eletronico, String marca, Voltagem voltagem, String descricao, String observacao, double preco) {
+	    eletronico.setMarca(marca);
+	    eletronico.setVoltagem(voltagem);
+	    
+	    return (Eletronico) this.criarProduto(eletronico, descricao, observacao, preco);
 	}
 	
 	private Game criarGame(String descricao, GeneroGame genero, PlataformaGame plataforma, double preco) {
 	    Game game = new Game();
-	    
-	    game.setDescricao(descricao);
 	    game.setGenero(genero);
 	    game.setPlataforma(plataforma);
-	    game.setPreco(preco);
 	    
-	    return game;
+	    return (Game) this.criarProduto(game, descricao, null, preco);
 	}
 	
 	private Livro criarLivro(String autor, String descricao, Short edicao, GeneroLivro genero, double preco, String observacao) {
 	    Livro livro = new Livro();
-	    
 	    livro.setAutor(autor);
-	    livro.setDescricao(descricao);
 	    livro.setEdicao(edicao);
 	    livro.setGenero(genero);
-	    livro.setPreco(preco);
-	    livro.setObservacao(observacao);
 	    
-	    return livro;
+	    return (Livro) this.criarProduto(livro, descricao, observacao, preco);
 	}
 	
 	private Perfume criarPerfume(String descricao, GeneroPerfume genero, double preco) {
 	    Perfume perfume = new Perfume();
-	    
-	    perfume.setDescricao(descricao);
 	    perfume.setGenero(genero);
-	    perfume.setPreco(preco);
 	    
-	    return perfume;
+	    return (Perfume) this.criarProduto(perfume, descricao, null, preco);
+	}
+	
+	private Produto criarProduto(Produto produto, String descricao, String observacao, double preco) {
+	    produto.setDescricao(descricao);
+	    produto.setObservacao(observacao);
+	    produto.setPreco(preco);
+	    
+	    return produto;
 	}
 }
