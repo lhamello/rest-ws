@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Request;
 
-@Path("1.0/")
+@Path("/")
 @Produces("application/json;charset=utf-8")
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)

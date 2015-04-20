@@ -22,7 +22,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import br.unisc.pos.infra.Erro;
 
-@Path("1.0/")
+@Path("/")
 @Produces("application/json;charset=utf-8")
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
