@@ -5,6 +5,10 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
+import br.unisc.pos.produto.eletronico.Voltagem;
+import br.unisc.pos.produto.eletronico.computador.Computador;
+import br.unisc.pos.produto.eletronico.computador.ComputadorService;
+import br.unisc.pos.produto.eletronico.computador.SistemaOperacional;
 import br.unisc.pos.produto.game.GeneroGame;
 import br.unisc.pos.produto.game.Game;
 import br.unisc.pos.produto.game.GameService;
@@ -21,6 +25,9 @@ import br.unisc.pos.produto.perfume.PerfumeService;
 public class StartupTest {
     
     @Inject
+    private ComputadorService computadorService;
+    
+    @Inject
     private GameService gameService;
     
     @Inject
@@ -31,6 +38,7 @@ public class StartupTest {
 	
 	@PostConstruct
 	public void teste() {
+	    this.adicionarComputadores();
 	    this.adicionarGames();
 	    this.adicionarLivros();
 	    this.adicionarPerfumes();
@@ -38,7 +46,11 @@ public class StartupTest {
 		System.out.println("RODOU!!!!");
 	}
 	
-	private void adicionarGames() {
+	private void adicionarComputadores() {
+        computadorService.incluir(this.criarComputador("Inspiron i7 8GB 14", "Dell", 2300.00, SistemaOperacional.WINDOWS, "Placa de vídeo dedicada.", Voltagem.V110_220));
+    }
+
+    private void adicionarGames() {
 	    gameService.incluir(this.criarGame("Pro Evolution Soccer 2015", GeneroGame.ESPORTE, PlataformaGame.PS4, 119.00));
 	    gameService.incluir(this.criarGame("FIFA 2015", GeneroGame.ESPORTE, PlataformaGame.XBOX_ONE, 109.90));
 	    gameService.incluir(this.criarGame("SimCity 2013", GeneroGame.ESTRATEGIA, PlataformaGame.PC, 99.00));
@@ -54,6 +66,19 @@ public class StartupTest {
 	    perfumeService.incluir(this.criarPerfume("Kayak", GeneroPerfume.MASCULINO, 100.0));
 	    perfumeService.incluir(this.criarPerfume("Egeo", GeneroPerfume.MASCULINO, 70.0));
 	    perfumeService.incluir(this.criarPerfume("Jequiti", GeneroPerfume.FEMININO, 55.0));
+	}
+	
+	private Computador criarComputador(String descricao, String marca, double preco, SistemaOperacional so, String observacao, Voltagem voltagem) {
+	    Computador computador = new Computador();
+	    
+	    computador.setDescricao(descricao);
+	    computador.setMarca(marca);
+	    computador.setPreco(preco);
+	    computador.setSistemaOperacional(so);
+	    computador.setObservacao(observacao);
+	    computador.setVoltagem(voltagem);
+	    
+	    return computador;
 	}
 	
 	private Game criarGame(String descricao, GeneroGame genero, PlataformaGame plataforma, double preco) {

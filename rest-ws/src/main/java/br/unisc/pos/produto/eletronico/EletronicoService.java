@@ -1,18 +1,18 @@
-package br.unisc.pos.produto;
+package br.unisc.pos.produto.eletronico;
 
 import javax.inject.Inject;
 
 import br.unisc.pos.infra.BaseService;
 
-public class ProdutoService extends BaseService<Produto, Long> {
+public class EletronicoService extends BaseService<Eletronico, Long> {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private ProdutoDAO produtoDAO;
+    private EletronicoDAO eletronicoDAO;
 
     @Override
     public void initDAO() {
-        super.setDAO(produtoDAO);
+        super.setDAO(eletronicoDAO);
     }
 }

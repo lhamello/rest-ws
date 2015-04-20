@@ -1,18 +1,35 @@
 package br.unisc.pos.produto.eletronico.computador;
 
-import br.unisc.pos.produto.Produto;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-public class Computador extends Produto {
+import br.unisc.pos.converter.SistemaOperacionalConverter;
+import br.unisc.pos.produto.eletronico.Eletronico;
 
-	private static final long serialVersionUID = 1L;
+@Entity
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "COMPUTADOR")
+public class Computador extends Eletronico {
 
-	private String sistemaOperacional;
+    private static final long serialVersionUID = 1L;
 
-	public String getSistemaOperacional() {
-		return sistemaOperacional;
-	}
+    @Column(name = "SISTEMA_OPERACIONAL", nullable = false)
+    @Convert(converter = SistemaOperacionalConverter.class)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private SistemaOperacional sistemaOperacional;
 
-	public void setSistemaOperacional(String sistemaOperacional) {
-		this.sistemaOperacional = sistemaOperacional;
-	}
+    public SistemaOperacional getSistemaOperacional() {
+        return sistemaOperacional;
+    }
+
+    public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
+        this.sistemaOperacional = sistemaOperacional;
+    }
 }

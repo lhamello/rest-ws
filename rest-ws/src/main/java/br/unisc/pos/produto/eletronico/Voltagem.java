@@ -1,20 +1,34 @@
 package br.unisc.pos.produto.eletronico;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Voltagem {
 
-	V_110("110V"), V_220("220V"), V_110_220("110V/220V");
+    V110, V220, V110_220;
 
-	private String voltagem;
+    private static Map<Voltagem, String> map;
 
-	private Voltagem(String voltagem) {
-		this.voltagem = voltagem;
-	}
+    static {
+        map = new HashMap<>();
+        map.put(V110, "110V");
+        map.put(V220, "220V");
+        map.put(V110_220, "V110/220");
+    }
 
-	public String getVoltagem() {
-		return voltagem;
-	}
+    public String getGenero() {
+        return map.get(this);
+    }
 
-	public void setVoltagem(String voltagem) {
-		this.voltagem = voltagem;
-	}
+    public static Voltagem getEnum(String genero) {
+        for (Voltagem obj : map.keySet()) {
+            String nome = map.get(obj);
+
+            if (nome.equalsIgnoreCase(genero)) {
+                return obj;
+            }
+        }
+
+        return null;
+    }
 }
