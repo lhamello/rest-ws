@@ -1,13 +1,13 @@
-package br.unisc.pos.produto.jogoeletronico;
+package br.unisc.pos.produto.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum GeneroJogoEletronico {
+public enum GeneroGame {
 
     ACAO, AVENTURA, CASUAL, CORRIDA, ESPORTE, ESTRATEGIA, PLATAFORMA, SIMULACAO;
 
-    private static Map<GeneroJogoEletronico, String> map;
+    private static Map<GeneroGame, String> map;
 
     static {
         map = new HashMap<>();
@@ -25,8 +25,8 @@ public enum GeneroJogoEletronico {
         return map.get(this);
     }
 
-    public static GeneroJogoEletronico getEnum(String genero) {
-        for (GeneroJogoEletronico obj : map.keySet()) {
+    public static GeneroGame getEnum(String genero) {
+        for (GeneroGame obj : map.keySet()) {
             String nome = map.get(obj);
 
             if (nome.equalsIgnoreCase(genero)) {

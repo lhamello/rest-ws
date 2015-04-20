@@ -1,13 +1,13 @@
-package br.unisc.pos.produto.jogoeletronico;
+package br.unisc.pos.produto.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum PlataformaJogoEletronico {
+public enum PlataformaGame {
 
     PC, PS_VITA, PSP, PS2, PS3, PS4, XBOX, XBOX_360, XBOX_ONE, WII, WII_U, N_3DS;
 
-    private static Map<PlataformaJogoEletronico, String> map;
+    private static Map<PlataformaGame, String> map;
 
     static {
         map = new HashMap<>();
@@ -29,8 +29,8 @@ public enum PlataformaJogoEletronico {
         return map.get(this);
     }
 
-    public static PlataformaJogoEletronico getEnum(String genero) {
-        for (PlataformaJogoEletronico obj : map.keySet()) {
+    public static PlataformaGame getEnum(String genero) {
+        for (PlataformaGame obj : map.keySet()) {
             String nome = map.get(obj);
 
             if (nome.equalsIgnoreCase(genero)) {

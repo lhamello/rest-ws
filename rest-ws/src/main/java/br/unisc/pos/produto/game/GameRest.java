@@ -1,4 +1,4 @@
-package br.unisc.pos.produto.jogoeletronico;
+package br.unisc.pos.produto.game;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,16 +17,16 @@ import javax.ws.rs.core.Request;
 @Produces("application/json;charset=utf-8")
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-public class JogoEletronicoRest implements Serializable {
+public class GameRest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private JogoEletronicoService jogoEletronicoService;
+    private GameService gameService;
 
     @GET
     @Path("games")
-    public List<JogoEletronico> listarTodos(@Context Request request) {
-        return jogoEletronicoService.listar(new JogoEletronico());
+    public List<Game> listarTodos(@Context Request request) {
+        return gameService.listar(new Game());
     }
 }

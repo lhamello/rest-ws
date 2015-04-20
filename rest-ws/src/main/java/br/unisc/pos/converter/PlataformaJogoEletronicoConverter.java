@@ -3,18 +3,18 @@ package br.unisc.pos.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import br.unisc.pos.produto.jogoeletronico.PlataformaJogoEletronico;
+import br.unisc.pos.produto.game.PlataformaGame;
 
 @Converter
-public class PlataformaJogoEletronicoConverter implements AttributeConverter<PlataformaJogoEletronico, String> {
+public class PlataformaJogoEletronicoConverter implements AttributeConverter<PlataformaGame, String> {
 
     @Override
-    public String convertToDatabaseColumn(PlataformaJogoEletronico genero) {
+    public String convertToDatabaseColumn(PlataformaGame genero) {
         return genero.getPlataforma();
     }
 
     @Override
-    public PlataformaJogoEletronico convertToEntityAttribute(String genero) {
-        return PlataformaJogoEletronico.getEnum(genero);
+    public PlataformaGame convertToEntityAttribute(String genero) {
+        return PlataformaGame.getEnum(genero);
     }
 }

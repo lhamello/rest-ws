@@ -5,10 +5,10 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import br.unisc.pos.produto.jogoeletronico.GeneroJogoEletronico;
-import br.unisc.pos.produto.jogoeletronico.JogoEletronico;
-import br.unisc.pos.produto.jogoeletronico.JogoEletronicoService;
-import br.unisc.pos.produto.jogoeletronico.PlataformaJogoEletronico;
+import br.unisc.pos.produto.game.GeneroGame;
+import br.unisc.pos.produto.game.Game;
+import br.unisc.pos.produto.game.GameService;
+import br.unisc.pos.produto.game.PlataformaGame;
 import br.unisc.pos.produto.livro.GeneroLivro;
 import br.unisc.pos.produto.livro.Livro;
 import br.unisc.pos.produto.livro.LivroService;
@@ -21,7 +21,7 @@ import br.unisc.pos.produto.perfume.PerfumeService;
 public class StartupTest {
     
     @Inject
-    private JogoEletronicoService gameService;
+    private GameService gameService;
     
     @Inject
     private LivroService livroService;
@@ -39,10 +39,10 @@ public class StartupTest {
 	}
 	
 	private void adicionarGames() {
-	    gameService.incluir(this.criarGame("Pro Evolution Soccer 2015", GeneroJogoEletronico.ESPORTE, PlataformaJogoEletronico.PS4, 119.00));
-	    gameService.incluir(this.criarGame("FIFA 2015", GeneroJogoEletronico.ESPORTE, PlataformaJogoEletronico.XBOX_ONE, 109.90));
-	    gameService.incluir(this.criarGame("SimCity 2013", GeneroJogoEletronico.ESTRATEGIA, PlataformaJogoEletronico.PC, 99.00));
-	    gameService.incluir(this.criarGame("Uncharted 3", GeneroJogoEletronico.AVENTURA, PlataformaJogoEletronico.PS3, 39.90));
+	    gameService.incluir(this.criarGame("Pro Evolution Soccer 2015", GeneroGame.ESPORTE, PlataformaGame.PS4, 119.00));
+	    gameService.incluir(this.criarGame("FIFA 2015", GeneroGame.ESPORTE, PlataformaGame.XBOX_ONE, 109.90));
+	    gameService.incluir(this.criarGame("SimCity 2013", GeneroGame.ESTRATEGIA, PlataformaGame.PC, 99.00));
+	    gameService.incluir(this.criarGame("Uncharted 3", GeneroGame.AVENTURA, PlataformaGame.PS3, 39.90));
 	}
 	
 	private void adicionarLivros() {
@@ -56,8 +56,8 @@ public class StartupTest {
 	    perfumeService.incluir(this.criarPerfume("Jequiti", GeneroPerfume.FEMININO, 55.0));
 	}
 	
-	private JogoEletronico criarGame(String descricao, GeneroJogoEletronico genero, PlataformaJogoEletronico plataforma, double preco) {
-	    JogoEletronico game = new JogoEletronico();
+	private Game criarGame(String descricao, GeneroGame genero, PlataformaGame plataforma, double preco) {
+	    Game game = new Game();
 	    
 	    game.setDescricao(descricao);
 	    game.setGenero(genero);

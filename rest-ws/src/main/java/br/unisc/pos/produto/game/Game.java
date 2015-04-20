@@ -1,4 +1,4 @@
-package br.unisc.pos.produto.jogoeletronico;
+package br.unisc.pos.produto.game;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -15,8 +15,8 @@ import br.unisc.pos.produto.Produto;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "ID")
-@Table(name = "JOGO_ELETRONICO")
-public class JogoEletronico extends Produto {
+@Table(name = "GAME")
+public class Game extends Produto {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,27 +24,27 @@ public class JogoEletronico extends Produto {
     @Convert(converter = PlataformaJogoEletronicoConverter.class)
     @Enumerated(EnumType.STRING)
     @NotNull
-    private PlataformaJogoEletronico plataforma;
+    private PlataformaGame plataforma;
 
     @Column(name = "GENERO", nullable = false)
     @Convert(converter = GeneroJogoEletronicoConverter.class)
     @Enumerated(EnumType.STRING)
     @NotNull
-    private GeneroJogoEletronico genero;
+    private GeneroGame genero;
 
-    public PlataformaJogoEletronico getPlataforma() {
+    public PlataformaGame getPlataforma() {
         return plataforma;
     }
 
-    public void setPlataforma(PlataformaJogoEletronico plataforma) {
+    public void setPlataforma(PlataformaGame plataforma) {
         this.plataforma = plataforma;
     }
 
-    public GeneroJogoEletronico getGenero() {
+    public GeneroGame getGenero() {
         return genero;
     }
 
-    public void setGenero(GeneroJogoEletronico genero) {
+    public void setGenero(GeneroGame genero) {
         this.genero = genero;
     }
 }
