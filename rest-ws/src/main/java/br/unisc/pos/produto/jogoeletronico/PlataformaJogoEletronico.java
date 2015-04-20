@@ -1,31 +1,43 @@
 package br.unisc.pos.produto.jogoeletronico;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum PlataformaJogoEletronico {
-	
-	PC("PC"), 
-	PSP_VITA("PS VITA"), 
-	PSP("PSP"), 
-	PS2("PS2"), 
-	PS3("PS3"), 
-	PS4("PS4"), 
-	XBOX("XBOX"), 
-	XBOX_360("XBOX 360"), 
-	XBOX_ONE("XBOX ONE"), 
-	WII("Nintendo WII"), 
-	WII_U("Nintendo WII U"),
-	N_3DS("Nintendo 3DS");
 
-	private String plataforma;
+    PC, PS_VITA, PSP, PS2, PS3, PS4, XBOX, XBOX_360, XBOX_ONE, WII, WII_U, N_3DS;
 
-	private PlataformaJogoEletronico(String plataforma) {
-		this.plataforma = plataforma;
-	}
+    private static Map<PlataformaJogoEletronico, String> map;
 
-	public String getPlataforma() {
-		return plataforma;
-	}
+    static {
+        map = new HashMap<>();
+        map.put(PC, "PC");
+        map.put(PS_VITA, "PS VITA");
+        map.put(PSP, "PSP");
+        map.put(PS2, "PS2");
+        map.put(PS3, "PS3");
+        map.put(PS4, "PS4");
+        map.put(XBOX, "XBOX");
+        map.put(XBOX_360, "XBOX 360");
+        map.put(XBOX_ONE, "XBOX ONE");
+        map.put(WII, "Nintendo WII");
+        map.put(WII_U, "Nintendo WII U");
+        map.put(N_3DS, "Nintendo 3DS");
+    }
 
-	public void setPlataforma(String plataforma) {
-		this.plataforma = plataforma;
-	}
+    public String getPlataforma() {
+        return map.get(this);
+    }
+
+    public static PlataformaJogoEletronico getEnum(String genero) {
+        for (PlataformaJogoEletronico obj : map.keySet()) {
+            String nome = map.get(obj);
+
+            if (nome.equalsIgnoreCase(genero)) {
+                return obj;
+            }
+        }
+
+        return null;
+    }
 }

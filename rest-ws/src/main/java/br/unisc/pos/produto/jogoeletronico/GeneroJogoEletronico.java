@@ -1,27 +1,39 @@
 package br.unisc.pos.produto.jogoeletronico;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum GeneroJogoEletronico {
 
-	ACAO("Ação"), 
-	AVENTURA("Aventura"), 
-	CASUAL("Casual"), 
-	CORRIDA("Corrida"), 
-	ESPORTES("Esportes"),
-	ESTRATEGIA("Estratégia"), 
-	PLATAFORMA("Plataforma"),
-	SIMULACAO("Simulação");
+    ACAO, AVENTURA, CASUAL, CORRIDA, ESPORTE, ESTRATEGIA, PLATAFORMA, SIMULACAO;
 
-	private String genero;
+    private static Map<GeneroJogoEletronico, String> map;
 
-	private GeneroJogoEletronico(String genero) {
-		this.genero = genero;
-	}
+    static {
+        map = new HashMap<>();
+        map.put(ACAO, "Ação");
+        map.put(AVENTURA, "Aventura");
+        map.put(CASUAL, "Casual");
+        map.put(CORRIDA, "Corrida");
+        map.put(ESPORTE, "Esporte");
+        map.put(ESTRATEGIA, "Estratégia");
+        map.put(PLATAFORMA, "Plataforma");
+        map.put(SIMULACAO, "Simulação");
+    }
 
-	public String getGenero() {
-		return genero;
-	}
+    public String getGenero() {
+        return map.get(this);
+    }
 
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
+    public static GeneroJogoEletronico getEnum(String genero) {
+        for (GeneroJogoEletronico obj : map.keySet()) {
+            String nome = map.get(obj);
+
+            if (nome.equalsIgnoreCase(genero)) {
+                return obj;
+            }
+        }
+
+        return null;
+    }
 }
