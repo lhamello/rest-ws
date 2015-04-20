@@ -38,14 +38,16 @@ public class Produto extends BaseEntity<Long> {
     @NotNull
     private Double preco;
 
-    @Column(name = "OBSERVACAO", length = 4000, nullable = false)
+    @Column(name = "OBSERVACAO", length = 4000, nullable = true)
     @Length(max = 4000)
     private String observacao;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -72,16 +74,6 @@ public class Produto extends BaseEntity<Long> {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    @Override
-    public Long getPrimaryKey() {
-        return id;
-    }
-
-    @Override
-    public void setPrimaryKey(Long primaryKey) {
-        this.id = primaryKey;
     }
 
     @Override

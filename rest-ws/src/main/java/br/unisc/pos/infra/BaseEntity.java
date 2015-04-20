@@ -9,8 +9,8 @@ public abstract class BaseEntity<K> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public abstract K getPrimaryKey();
+    public abstract K getId();
 
-    public abstract void setPrimaryKey(final K primaryKey);
+    public abstract void setId(final K id);
 
 }

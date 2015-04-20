@@ -1,20 +1,33 @@
 package br.unisc.pos.produto.perfume;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum GeneroPerfume {
 
-	FEMININO("Feminino"), MASCULINO("Masculino");
+    FEMININO, MASCULINO;
 
-	private String genero;
+    private static Map<GeneroPerfume, String> map;
 
-	private GeneroPerfume(String genero) {
-		this.genero = genero;
-	}
+    static {
+        map = new HashMap<>();
+        map.put(FEMININO, "Feminino");
+        map.put(MASCULINO, "Masculino");
+    }
 
-	public String getGenero() {
-		return genero;
-	}
+    public String getGenero() {
+        return map.get(this);
+    }
 
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
+    public static GeneroPerfume getEnum(String genero) {
+        for (GeneroPerfume obj : map.keySet()) {
+            String nome = map.get(obj);
+
+            if (nome.equalsIgnoreCase(genero)) {
+                return obj;
+            }
+        }
+
+        return null;
+    }
 }
