@@ -11,6 +11,10 @@ import br.unisc.pos.produto.eletronico.Voltagem;
 import br.unisc.pos.produto.eletronico.computador.Computador;
 import br.unisc.pos.produto.eletronico.computador.ComputadorService;
 import br.unisc.pos.produto.eletronico.computador.SistemaOperacional;
+import br.unisc.pos.produto.eletronico.eletrodomestico.Eletrodomestico;
+import br.unisc.pos.produto.eletronico.eletrodomestico.EletrodomesticoService;
+import br.unisc.pos.produto.eletronico.televisor.Televisor;
+import br.unisc.pos.produto.eletronico.televisor.TelevisorService;
 import br.unisc.pos.produto.game.GeneroGame;
 import br.unisc.pos.produto.game.Game;
 import br.unisc.pos.produto.game.GameService;
@@ -30,6 +34,9 @@ public class StartupTest {
     private ComputadorService computadorService;
     
     @Inject
+    private EletrodomesticoService eletrodomesticoService;
+    
+    @Inject
     private GameService gameService;
     
     @Inject
@@ -38,12 +45,17 @@ public class StartupTest {
 	@Inject
 	private PerfumeService perfumeService;
 	
+	@Inject
+	private TelevisorService televisorService;
+	
 	@PostConstruct
 	public void teste() {
 	    this.adicionarComputadores();
+	    this.adicionarEletrodomesticos();
 	    this.adicionarGames();
 	    this.adicionarLivros();
 	    this.adicionarPerfumes();
+	    this.adicionarTelevisores();
 	    
 		System.out.println("RODOU!!!!");
 	}
@@ -52,6 +64,12 @@ public class StartupTest {
         computadorService.incluir(this.criarComputador("Inspiron i7 8GB 14", "Dell", 2300.00, SistemaOperacional.WINDOWS, "Placa de vídeo dedicada.", Voltagem.V110_220));
     }
 
+	private void adicionarEletrodomesticos() {
+	    eletrodomesticoService.incluir(this.criarEletrodomestico("Batedeira", "Wallita", 78.99, "Preto", Voltagem.V110));
+	    eletrodomesticoService.incluir(this.criarEletrodomestico("Liquidificador", "Arno", 120.35, "Branco", Voltagem.V110_220));
+	    eletrodomesticoService.incluir(this.criarEletrodomestico("Fogão", "Consul", 679.99, "Prata", Voltagem.V220));
+	}
+	
     private void adicionarGames() {
 	    gameService.incluir(this.criarGame("Pro Evolution Soccer 2015", GeneroGame.ESPORTE, PlataformaGame.PS4, 119.00));
 	    gameService.incluir(this.criarGame("FIFA 2015", GeneroGame.ESPORTE, PlataformaGame.XBOX_ONE, 109.90));
@@ -70,11 +88,22 @@ public class StartupTest {
 	    perfumeService.incluir(this.criarPerfume("Jequiti", GeneroPerfume.FEMININO, 55.0));
 	}
 	
+	private void adicionarTelevisores() {
+	    televisorService.incluir(this.criarTelevisor("Smart TV", "LG", 1359.00, new Short("40"), "FULL HD Wi-Fi 3 HDMI 2 USB 60 HZ", Voltagem.V110_220));
+	}
+	
 	private Computador criarComputador(String descricao, String marca, double preco, SistemaOperacional so, String observacao, Voltagem voltagem) {
 	    Computador computador = new Computador();
 	    computador.setSistemaOperacional(so);
 	    
 	    return (Computador) this.criarEletronico(computador, marca, voltagem, descricao, observacao, preco);
+	}
+	
+	private Eletrodomestico criarEletrodomestico(String descricao, String marca, double preco, String cor, Voltagem voltagem) {
+	    Eletrodomestico eletrodomestico = new Eletrodomestico();
+	    eletrodomestico.setCor(cor);
+	    
+	    return (Eletrodomestico) this.criarEletronico(eletrodomestico, marca, voltagem, descricao, null, preco);
 	}
 	
 	private Eletronico criarEletronico(Eletronico eletronico, String marca, Voltagem voltagem, String descricao, String observacao, double preco) {
@@ -114,5 +143,12 @@ public class StartupTest {
 	    produto.setPreco(preco);
 	    
 	    return produto;
+	}
+	
+	private Televisor criarTelevisor(String descricao, String marca, double preco, Short polegada, String observacao, Voltagem voltagem) {
+	    Televisor televisor = new Televisor();
+	    televisor.setPolegada(polegada);
+	    
+	    return (Televisor) this.criarEletronico(televisor, marca, voltagem, descricao, observacao, preco);
 	}
 }

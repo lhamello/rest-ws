@@ -1,18 +1,32 @@
 package br.unisc.pos.produto.eletronico.eletrodomestico;
 
-import br.unisc.pos.produto.Produto;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
-public class Eletrodomestico extends Produto {
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
-	private static final long serialVersionUID = 1L;
+import br.unisc.pos.produto.eletronico.Eletronico;
 
-	private String cor;
+@Entity
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "ELETRODOMESTICO")
+public class Eletrodomestico extends Eletronico {
 
-	public String getCor() {
-		return cor;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setCor(String cor) {
-		this.cor = cor;
-	}
+    @Column(name = "COR", length = 30, nullable = false)
+    @Length(max = 30)
+    @NotEmpty
+    private String cor;
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
 }

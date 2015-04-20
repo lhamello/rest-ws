@@ -1,18 +1,29 @@
 package br.unisc.pos.produto.eletronico.televisor;
 
-import br.unisc.pos.produto.Produto;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-public class Televisor extends Produto {
+import br.unisc.pos.produto.eletronico.Eletronico;
 
-	private static final long serialVersionUID = 1L;
+@Entity
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "TELEVISOR")
+public class Televisor extends Eletronico {
 
-	private String polegada;
+    private static final long serialVersionUID = 1L;
 
-	public String getPolegada() {
-		return polegada;
-	}
+    @Column(name = "POLEGADA", nullable = false)
+    @NotNull
+    private Short polegada;
 
-	public void setPolegada(String polegada) {
-		this.polegada = polegada;
-	}
+    public Short getPolegada() {
+        return polegada;
+    }
+
+    public void setPolegada(Short polegada) {
+        this.polegada = polegada;
+    }
 }
