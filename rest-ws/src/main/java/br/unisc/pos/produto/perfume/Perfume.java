@@ -13,8 +13,8 @@ import br.unisc.pos.converter.GeneroPerfumeConverter;
 import br.unisc.pos.produto.Produto;
 
 @Entity
-@PrimaryKeyJoinColumn
-@Table(name = "ID")
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "PERFUME")
 public class Perfume extends Produto {
 
     private static final long serialVersionUID = 1L;
