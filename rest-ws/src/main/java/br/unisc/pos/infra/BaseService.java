@@ -18,6 +18,10 @@ public abstract class BaseService<E extends BaseEntity<K>, K> implements Seriali
     }
 
     public E incluir(final E entity) {
+        if (entity.getId() != null) {
+            throw new IdNotNullException("O ID do objeto deve ser nulo.");
+        }
+
         return dao.incluir(entity);
     }
 
