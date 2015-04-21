@@ -16,7 +16,7 @@ public class Eletrodomestico extends Eletronico {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "COR", length = 30, nullable = false)
-    @Length(max = 30)
+    @Length(min = 1, max = 30)
     @NotEmpty
     private String cor;
 

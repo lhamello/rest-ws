@@ -6,7 +6,7 @@ import javax.persistence.Converter;
 import br.unisc.pos.enums.PlataformaGame;
 
 @Converter
-public class PlataformaJogoEletronicoConverter implements AttributeConverter<PlataformaGame, String> {
+public class PlataformaGameConverter implements AttributeConverter<PlataformaGame, String> {
 
     @Override
     public String convertToDatabaseColumn(PlataformaGame genero) {

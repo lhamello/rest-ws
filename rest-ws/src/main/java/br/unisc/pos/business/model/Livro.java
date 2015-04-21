@@ -23,7 +23,7 @@ public class Livro extends Produto {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "AUTOR", length = 60, nullable = false)
-    @Length(max = 60)
+    @Length(min = 1, max = 60)
     @NotEmpty
     private String autor;
     

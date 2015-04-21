@@ -9,8 +9,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import br.unisc.pos.converter.GeneroJogoEletronicoConverter;
-import br.unisc.pos.converter.PlataformaJogoEletronicoConverter;
+import br.unisc.pos.converter.GeneroGameConverter;
+import br.unisc.pos.converter.PlataformaGameConverter;
 import br.unisc.pos.enums.GeneroGame;
 import br.unisc.pos.enums.PlataformaGame;
 
@@ -22,13 +22,13 @@ public class Game extends Produto {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "PLATAFORMA", nullable = false)
-    @Convert(converter = PlataformaJogoEletronicoConverter.class)
+    @Convert(converter = PlataformaGameConverter.class)
     @Enumerated(EnumType.STRING)
     @NotNull
     private PlataformaGame plataforma;
 
     @Column(name = "GENERO", nullable = false)
-    @Convert(converter = GeneroJogoEletronicoConverter.class)
+    @Convert(converter = GeneroGameConverter.class)
     @Enumerated(EnumType.STRING)
     @NotNull
     private GeneroGame genero;

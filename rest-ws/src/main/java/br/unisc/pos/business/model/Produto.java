@@ -30,7 +30,7 @@ public class Produto extends BaseEntity<Long> {
     protected Long id;
 
     @Column(name = "DESCRICAO", length = 100, nullable = false)
-    @Length(max = 100)
+    @Length(min = 1, max = 100)
     @NotBlank
     private String descricao;
 
@@ -39,7 +39,7 @@ public class Produto extends BaseEntity<Long> {
     private Double preco;
 
     @Column(name = "OBSERVACAO", length = 4000, nullable = true)
-    @Length(max = 4000)
+    @Length(min = 1, max = 4000)
     private String observacao;
 
     @Override
