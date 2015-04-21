@@ -69,13 +69,24 @@ public class ProdutoRest implements Serializable {
     }
 
     /**
-     * Deleta um produto do banco de dados a partir de seu id.
+     * Recebe o id de um produto, verifica se o id é válido e ser for válida
+     * exclui o produto. Se o produto for excluído, ele é retornado.
+     * <p>
+     * Também é retornado o status da transação:
+     * <ul>
+     * <li>200 ({@code Status.OK}), se o id informado for válido e a exclusão
+     * for consumada</li>
+     * <li>400 ({@code Status.BAD_REQUEST}), se o id não for válido e não for
+     * encontrado produto para ser deletado.</li>
+     * </ul>
      * 
      * @param id
      *            identificador do produto que será deletado.
      * 
      * @return um objeto {@link Response} contendo o status da transação e, se a
      *         exclusão foi consumada, também retorna o produto excluído.
+     * 
+     * @see javax.ws.rs.core.Response.Status
      */
     @DELETE
     @Path("produto/{id:[0-9][0-9]*}")
