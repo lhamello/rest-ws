@@ -33,6 +33,22 @@ public class LivroRest implements Serializable {
     @Inject
     private LivroService livroService;
 
+    /**
+     * Inclui um livro no banco de dados e retorna o livro incluído.
+     * <p>
+     * Juntamente com os registros é retornado o status da transação:
+     * <ul>
+     * <li>201 ({@code Status.CREATED}), se o livro for inserido com sucesso</li>
+     * <li>406 ({@code Status.NOT_ACCEPTABLE}), se houver algum erro de
+     * validação e o livro não for incluído</li>
+     * </ul>
+     * 
+     * @param livro
+     *            livro que será incluído.
+     * 
+     * @return um objeto {@link Response} contendo o status da transação e
+     *         também o livro, caso ele tenha sido incluído.
+     */
     @Consumes("application/json")
     @Path("livro")
     @POST
@@ -71,7 +87,7 @@ public class LivroRest implements Serializable {
             mensagem = new StringBuilder();
             mensagem.append("Falha ao incluir registro. Motivo = ");
             mensagem.append(idEx.getMessage());
-            
+
             status = Status.NOT_ACCEPTABLE;
         }
 
