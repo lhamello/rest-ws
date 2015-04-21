@@ -1,6 +1,6 @@
 package br.unisc.pos.infra;
 
-import br.unisc.pos.produto.Produto;
+import br.unisc.pos.business.model.Produto;
 
 public class StatusAcao {
 

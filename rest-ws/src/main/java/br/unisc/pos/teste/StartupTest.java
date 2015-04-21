@@ -5,26 +5,26 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import br.unisc.pos.produto.Produto;
-import br.unisc.pos.produto.eletronico.Eletronico;
-import br.unisc.pos.produto.eletronico.Voltagem;
-import br.unisc.pos.produto.eletronico.computador.Computador;
-import br.unisc.pos.produto.eletronico.computador.ComputadorService;
-import br.unisc.pos.produto.eletronico.computador.SistemaOperacional;
-import br.unisc.pos.produto.eletronico.eletrodomestico.Eletrodomestico;
-import br.unisc.pos.produto.eletronico.eletrodomestico.EletrodomesticoService;
-import br.unisc.pos.produto.eletronico.televisor.Televisor;
-import br.unisc.pos.produto.eletronico.televisor.TelevisorService;
-import br.unisc.pos.produto.game.GeneroGame;
-import br.unisc.pos.produto.game.Game;
-import br.unisc.pos.produto.game.GameService;
-import br.unisc.pos.produto.game.PlataformaGame;
-import br.unisc.pos.produto.livro.GeneroLivro;
-import br.unisc.pos.produto.livro.Livro;
-import br.unisc.pos.produto.livro.LivroService;
-import br.unisc.pos.produto.perfume.GeneroPerfume;
-import br.unisc.pos.produto.perfume.Perfume;
-import br.unisc.pos.produto.perfume.PerfumeService;
+import br.unisc.pos.business.model.Computador;
+import br.unisc.pos.business.model.Eletrodomestico;
+import br.unisc.pos.business.model.Eletronico;
+import br.unisc.pos.business.model.Game;
+import br.unisc.pos.business.model.Livro;
+import br.unisc.pos.business.model.Perfume;
+import br.unisc.pos.business.model.Produto;
+import br.unisc.pos.business.model.Televisor;
+import br.unisc.pos.business.service.ComputadorService;
+import br.unisc.pos.business.service.EletrodomesticoService;
+import br.unisc.pos.business.service.GameService;
+import br.unisc.pos.business.service.LivroService;
+import br.unisc.pos.business.service.PerfumeService;
+import br.unisc.pos.business.service.TelevisorService;
+import br.unisc.pos.enums.GeneroGame;
+import br.unisc.pos.enums.GeneroLivro;
+import br.unisc.pos.enums.GeneroPerfume;
+import br.unisc.pos.enums.PlataformaGame;
+import br.unisc.pos.enums.SistemaOperacional;
+import br.unisc.pos.enums.Voltagem;
 
 @Singleton
 @Startup
@@ -61,13 +61,13 @@ public class StartupTest {
 	}
 	
 	private void adicionarComputadores() {
-        computadorService.incluir(this.criarComputador("Inspiron i7 8GB 14", "Dell", 2300.00, SistemaOperacional.WINDOWS, "Placa de vídeo dedicada.", Voltagem.V110_220));
+        computadorService.incluir(this.criarComputador("Inspiron i7 8GB 14", "Dell", 2300.00, SistemaOperacional.WINDOWS, "Placa de vï¿½deo dedicada.", Voltagem.V110_220));
     }
 
 	private void adicionarEletrodomesticos() {
 	    eletrodomesticoService.incluir(this.criarEletrodomestico("Batedeira", "Wallita", 78.99, "Preto", Voltagem.V110));
 	    eletrodomesticoService.incluir(this.criarEletrodomestico("Liquidificador", "Arno", 120.35, "Branco", Voltagem.V110_220));
-	    eletrodomesticoService.incluir(this.criarEletrodomestico("Fogão", "Consul", 679.99, "Prata", Voltagem.V220));
+	    eletrodomesticoService.incluir(this.criarEletrodomestico("Fogï¿½o", "Consul", 679.99, "Prata", Voltagem.V220));
 	}
 	
     private void adicionarGames() {
@@ -78,7 +78,7 @@ public class StartupTest {
 	}
 	
 	private void adicionarLivros() {
-	    livroService.incluir(this.criarLivro("George R. R. Martin", "As Crônicas de Gelo e Fogo - A Guerras dos Tronos", new Short("1"), GeneroLivro.FANTASIA, 32.40, "Livro que baseia a série: Game of Thrones"));
+	    livroService.incluir(this.criarLivro("George R. R. Martin", "As Crï¿½nicas de Gelo e Fogo - A Guerras dos Tronos", new Short("1"), GeneroLivro.FANTASIA, 32.40, "Livro que baseia a sï¿½rie: Game of Thrones"));
 	    livroService.incluir(this.criarLivro("J. K. Rowling", "Harry Potter e a Pedro Filosofal", new Short("1"), GeneroLivro.FANTASIA, 25.90, null));
 	}
 	

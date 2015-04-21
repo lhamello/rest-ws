@@ -3,7 +3,7 @@ package br.unisc.pos.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import br.unisc.pos.produto.eletronico.Voltagem;
+import br.unisc.pos.enums.Voltagem;
 
 @Converter
 public class SistemaOperacionalConverter implements AttributeConverter<Voltagem, String> {

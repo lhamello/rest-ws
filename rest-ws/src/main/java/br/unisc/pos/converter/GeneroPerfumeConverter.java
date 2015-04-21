@@ -3,7 +3,7 @@ package br.unisc.pos.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import br.unisc.pos.produto.perfume.GeneroPerfume;
+import br.unisc.pos.enums.GeneroPerfume;
 
 @Converter
 public class GeneroPerfumeConverter implements AttributeConverter<GeneroPerfume, String> {

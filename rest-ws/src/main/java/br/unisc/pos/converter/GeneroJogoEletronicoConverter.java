@@ -3,7 +3,7 @@ package br.unisc.pos.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import br.unisc.pos.produto.game.GeneroGame;
+import br.unisc.pos.enums.GeneroGame;
  
 @Converter
 public class GeneroJogoEletronicoConverter implements AttributeConverter<GeneroGame, String> {
