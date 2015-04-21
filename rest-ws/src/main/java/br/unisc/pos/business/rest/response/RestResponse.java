@@ -10,9 +10,10 @@ import br.unisc.pos.infra.BaseEntity;
 public abstract class RestResponse {
 
     private int codigoStatus;
-    private Family familiaStatus;
     private String razaoStatus;
-    private int numRegistrosRetornados;
+    private Family familiaStatus;
+    private String mensagem;
+    private Integer numRegistrosRetornados;
     private BaseEntity<Long> entidadeResposta;
 
     public int getCodigoStatus() {
@@ -23,14 +24,6 @@ public abstract class RestResponse {
         this.codigoStatus = codigoStatus;
     }
 
-    public Family getFamiliaStatus() {
-        return familiaStatus;
-    }
-
-    public void setFamiliaStatus(Family familiaStatus) {
-        this.familiaStatus = familiaStatus;
-    }
-
     public String getRazaoStatus() {
         return razaoStatus;
     }
@@ -39,11 +32,27 @@ public abstract class RestResponse {
         this.razaoStatus = razaoStatus;
     }
 
-    public int getNumRegistrosRetornados() {
+    public Family getFamiliaStatus() {
+        return familiaStatus;
+    }
+
+    public void setFamiliaStatus(Family familiaStatus) {
+        this.familiaStatus = familiaStatus;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public Integer getNumRegistrosRetornados() {
         return numRegistrosRetornados;
     }
 
-    public void setNumRegistrosRetornados(int numRegistrosRetornados) {
+    public void setNumRegistrosRetornados(Integer numRegistrosRetornados) {
         this.numRegistrosRetornados = numRegistrosRetornados;
     }
 
@@ -54,5 +63,4 @@ public abstract class RestResponse {
     public void setEntidadeResposta(BaseEntity<Long> entidadeResposta) {
         this.entidadeResposta = entidadeResposta;
     }
-
 }

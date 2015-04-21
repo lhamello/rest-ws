@@ -23,8 +23,6 @@ import br.unisc.pos.business.model.Produto;
 import br.unisc.pos.business.rest.response.ProdutoResponse;
 import br.unisc.pos.business.service.ProdutoService;
 import br.unisc.pos.infra.Erro;
-import br.unisc.pos.infra.StatusAcao;
-import br.unisc.pos.infra.StatusAcao.StatusProduto;
 
 @Path("/")
 @Produces("application/json;charset=utf-8")
@@ -70,21 +68,32 @@ public class ProdutoRest implements Serializable {
         return builder.build();
     }
 
+    /**
+     * Deleta um produto do banco de dados a partir de seu id.
+     * 
+     * @param id
+     *            identificador do produto que será deletado.
+     * 
+     * @return um objeto {@link Response} contendo o status da transação e, se a
+     *         exclusão foi consumada, também retorna o produto excluído.
+     */
     @DELETE
     @Path("produto/{id:[0-9][0-9]*}")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response deletarPorId(@PathParam("id") Long id) {
         Produto produto = produtoService.consultarChave(id);
+        Status status = Status.OK;
+        String mensagem;
 
         if (produto == null) {
-            Erro erro = new Erro(Status.NOT_FOUND, "Id [" + id + "] n�o encontrado.");
-
-            return Response.status(Status.NOT_FOUND).entity(erro).build();
+            status = Status.BAD_REQUEST;
+            mensagem = "Produto [" + id + "] não encontrado.";
+        } else {
+            produtoService.excluir(produto);
+            mensagem = "Produto [" + id + "] deletado com sucesso.";
         }
 
-        produtoService.excluir(produto);
-
-        return Response.status(Status.OK).entity(new StatusAcao(produto, StatusProduto.DELETADO)).build();
+        return Response.status(status).entity(new ProdutoResponse(status, produto, mensagem)).build();
     }
 
     /**

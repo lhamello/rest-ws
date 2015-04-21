@@ -13,6 +13,12 @@ public class ProdutoResponse extends RestResponse {
 
     private List<Produto> listaResposta;
 
+    public ProdutoResponse(Status status, Produto produto, String mensagem) {
+        super.setEntidadeResposta(produto);
+        super.setMensagem(mensagem);
+        this.setParametrosSuperClasse(status, null);
+    }
+
     public ProdutoResponse(Status status, List<Produto> produtos) {
         this.listaResposta = produtos;
         this.setParametrosSuperClasse(status, produtos.size());
@@ -26,7 +32,7 @@ public class ProdutoResponse extends RestResponse {
         this.listaResposta = listaResposta;
     }
 
-    private void setParametrosSuperClasse(Status status, int numRegistrosRetornados) {
+    private void setParametrosSuperClasse(Status status, Integer numRegistrosRetornados) {
         super.setCodigoStatus(status.getStatusCode());
         super.setFamiliaStatus(status.getFamily());
         super.setRazaoStatus(status.getReasonPhrase());
