@@ -12,9 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -22,7 +20,6 @@ import javax.ws.rs.core.Response.Status;
 import br.unisc.pos.business.model.Produto;
 import br.unisc.pos.business.rest.response.ProdutoResponse;
 import br.unisc.pos.business.service.ProdutoService;
-import br.unisc.pos.infra.Erro;
 
 @Path("/")
 @Produces("application/json;charset=utf-8")
@@ -35,37 +32,30 @@ public class ProdutoRest implements Serializable {
     @Inject
     private ProdutoService produtoService;
 
+    /**
+     * Recebe o id de um produto, e retorna o produto correspondente no banco de
+     * dados (se encontrado).
+     * <p>
+     * Também é retornado o status da transação:
+     * <ul>
+     * <li>200 ({@code Status.OK}), se o id corresponder à um produto no banco
+     * de dados</li>
+     * <li>400 ({@code Status.BAD_REQUEST}), se o id não corresponder à um
+     * registro no banco de dados.</li>
+     * </ul>
+     * 
+     * @param id
+     *            identificador do produto consultado.
+     * 
+     * @return um objeto {@link Response} contendo o status da transação e o
+     *         produto consultado (se ele existir).
+     * 
+     * @see javax.ws.rs.core.Response.Status
+     */
     @GET
     @Path("produto/{id:[0-9][0-9]*}")
     public Response buscarPorId(@PathParam("id") Long id, @Context Request request) {
-        Produto produto;
-
-        produto = produtoService.consultarChave(id);
-
-        if (produto == null) {
-            Erro erro = new Erro(Status.NOT_FOUND, "Id [" + id + "] n�o encontrado.");
-
-            return Response.status(Status.NOT_FOUND).entity(erro).build();
-        }
-
-        CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(100);
-
-        EntityTag tag = new EntityTag(Integer.toString(produto.hashCode()));
-
-        Response.ResponseBuilder builder = request.evaluatePreconditions(tag);
-
-        if (builder != null) {
-            builder.cacheControl(cacheControl);
-
-            return builder.build();
-        }
-
-        builder = Response.ok(produto);
-        builder.cacheControl(cacheControl);
-        builder.tag(tag);
-
-        return builder.build();
+        return this.editarExcluir(id, false, "retornado com sucesso.");
     }
 
     /**
@@ -92,19 +82,7 @@ public class ProdutoRest implements Serializable {
     @Path("produto/{id:[0-9][0-9]*}")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response deletarPorId(@PathParam("id") Long id) {
-        Produto produto = produtoService.consultarChave(id);
-        Status status = Status.OK;
-        String mensagem;
-
-        if (produto == null) {
-            status = Status.BAD_REQUEST;
-            mensagem = "Produto [" + id + "] não encontrado.";
-        } else {
-            produtoService.excluir(produto);
-            mensagem = "Produto [" + id + "] deletado com sucesso.";
-        }
-
-        return Response.status(status).entity(new ProdutoResponse(status, produto, mensagem)).build();
+        return this.editarExcluir(id, true, "deletado com sucesso.");
     }
 
     /**
@@ -135,5 +113,25 @@ public class ProdutoRest implements Serializable {
         }
 
         return Response.status(status).entity(new ProdutoResponse(status, produtos)).build();
+    }
+
+    private Response editarExcluir(Long id, boolean exclusao, String sufixoMensagemSucesso) {
+        Produto produto = produtoService.consultarChave(id);
+        Status status = Status.OK;
+        String mensagem;
+
+        if (produto == null) {
+            status = Status.BAD_REQUEST;
+            mensagem = "Produto [" + id + "] não encontrado.";
+        } else {
+
+            if (exclusao) {
+                produtoService.excluir(produto);
+            }
+
+            mensagem = "Produto [" + id + "] " + sufixoMensagemSucesso;
+        }
+
+        return Response.status(status).entity(new ProdutoResponse(status, produto, mensagem)).build();
     }
 }
