@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -19,6 +20,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import br.unisc.pos.infra.Erro;
+import br.unisc.pos.infra.StatusAcao;
+import br.unisc.pos.infra.StatusAcao.StatusProduto;
 
 @Path("/")
 @Produces("application/json;charset=utf-8")
@@ -30,17 +33,17 @@ public class ProdutoRest implements Serializable {
 
     @Inject
     private ProdutoService produtoService;
-    
+
     @GET
     @Path("produto/{id:[0-9][0-9]*}")
     public Response buscarPorId(@PathParam("id") Long id, @Context Request request) {
         Produto produto;
 
         produto = produtoService.consultarChave(id);
-        
+
         if (produto == null) {
-            Erro erro = new Erro(Status.NOT_FOUND, "Id [" + id + "] n√£o encontrado.");
-            
+            Erro erro = new Erro(Status.NOT_FOUND, "Id [" + id + "] n„o encontrado.");
+
             return Response.status(Status.NOT_FOUND).entity(erro).build();
         }
 
@@ -62,8 +65,25 @@ public class ProdutoRest implements Serializable {
         builder.tag(tag);
 
         return builder.build();
-    } 
-    
+    }
+
+    @DELETE
+    @Path("produto/{id:[0-9][0-9]*}")
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Response deletarPorId(@PathParam("id") Long id) {
+        Produto produto = produtoService.consultarChave(id);
+
+        if (produto == null) {
+            Erro erro = new Erro(Status.NOT_FOUND, "Id [" + id + "] n„o encontrado.");
+
+            return Response.status(Status.NOT_FOUND).entity(erro).build();
+        }
+
+        produtoService.excluir(produto);
+
+        return Response.status(Status.OK).entity(new StatusAcao(produto, StatusProduto.DELETADO)).build();
+    }
+
     @GET
     @Path("produtos")
     public List<Produto> listarTodos(@Context Request request) {
