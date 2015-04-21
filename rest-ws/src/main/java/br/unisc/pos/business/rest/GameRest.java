@@ -2,16 +2,18 @@ package br.unisc.pos.business.rest;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -31,15 +33,65 @@ public class GameRest implements Serializable {
     @Inject
     private GameService gameService;
 
-    @PUT
-    @Path("computador/{id:[0-9][0-9]*}")
+    /**
+     * Inclui um game no banco de dados e retorna o game incluído.
+     * <p>
+     * Juntamente com o registro é retornado o status da transação:
+     * <ul>
+     * <li>201 ({@code Status.CREATED}), se o game for inserido com sucesso</li>
+     * <li>406 ({@code Status.NOT_ACCEPTABLE}), se houver algum erro de
+     * validação e o game não for incluído</li>
+     * </ul>
+     * 
+     * @param game
+     *            game que será incluído.
+     * 
+     * @return um objeto {@link Response} contendo o status da transação e
+     *         também o game, caso ele tenha sido incluído.
+     */
     @Consumes("application/json")
-    public Response update(@PathParam("id") Integer id, Game produto) {
-        if (produto == null) {
-            return Response.status(Status.BAD_REQUEST).build();
+    @Path("game")
+    @POST
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Response incluir(final Game game) {
+        Game retorno = null;
+        Status status = Status.CREATED;
+
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("Registro incluído com sucesso.");
+
+        try {
+            retorno = gameService.incluir(game);
+        } catch (ConstraintViolationException ex) {
+            mensagem = new StringBuilder();
+            mensagem.append("Falha ao incluir registro. Motivo = ");
+
+            int i = 0;
+            Set<ConstraintViolation<?>> set = ex.getConstraintViolations();
+
+            for (ConstraintViolation<?> constraint : set) {
+
+                if (i != 0) {
+                    mensagem.append(", ");
+                }
+
+                mensagem.append(constraint.getPropertyPath().toString().toUpperCase());
+                mensagem.append(" ");
+                mensagem.append(constraint.getMessage());
+                i++;
+            }
+
+            status = Status.NOT_ACCEPTABLE;
+            mensagem.append(".");
+        } catch (Exception idEx) {
+            mensagem = new StringBuilder();
+            mensagem.append("Falha ao incluir registro. Motivo = ");
+            mensagem.append(idEx.getMessage());
+
+            status = Status.NOT_ACCEPTABLE;
         }
 
-        return Response.noContent().build();
+        return Response.status(status).entity(new GameResponse(status, retorno, mensagem.toString())).build();
     }
 
     /**
