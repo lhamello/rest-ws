@@ -67,7 +67,7 @@ public class StartupTest {
     private void adicionarEletrodomesticos() {
         eletrodomesticoService.incluir(this.criarEletrodomestico("Batedeira", "Wallita", 78.99, "Preto", Voltagem.V110));
         eletrodomesticoService.incluir(this.criarEletrodomestico("Liquidificador", "Arno", 120.35, "Branco", Voltagem.V110_220));
-        eletrodomesticoService.incluir(this.criarEletrodomestico("Fog�o", "Consul", 679.99, "Prata", Voltagem.V220));
+        eletrodomesticoService.incluir(this.criarEletrodomestico("Fogão", "Consul", 679.99, "Prata", Voltagem.V220));
     }
 
     private void adicionarGames() {
@@ -78,7 +78,7 @@ public class StartupTest {
     }
 
     private void adicionarLivros() {
-        livroService.incluir(this.criarLivro("George R. R. Martin", "As Cr�nicas de Gelo e Fogo - A Guerras dos Tronos", new Short("1"), GeneroLivro.FANTASIA, 32.40, "Livro que baseia a s�rie: Game of Thrones"));
+        livroService.incluir(this.criarLivro("George R. R. Martin", "As Crônicas de Gelo e Fogo - A Guerras dos Tronos", new Short("1"), GeneroLivro.FANTASIA, 32.40, "Livro que baseia a série: Game of Thrones"));
         livroService.incluir(this.criarLivro("J. K. Rowling", "Harry Potter e a Pedro Filosofal", new Short("1"), GeneroLivro.FANTASIA, 25.90, null));
     }
 
