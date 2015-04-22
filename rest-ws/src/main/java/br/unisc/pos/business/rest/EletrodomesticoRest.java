@@ -41,6 +41,10 @@ public class EletrodomesticoRest implements Serializable {
      * <ul>
      * <li>201 ({@code Status.CREATED}), se o eletrodoméstico for inserido com
      * sucesso</li>
+     * 
+     * <li>400 ({@code Status.BAD_REQUEST}), se dados de controle forem
+     * informados no arquivo json</li>
+     * 
      * <li>406 ({@code Status.NOT_ACCEPTABLE}), se houver algum erro de
      * validação e o eletrodoméstico não for incluído</li>
      * </ul>
@@ -63,7 +67,14 @@ public class EletrodomesticoRest implements Serializable {
         mensagem.append("Registro incluído com sucesso.");
 
         try {
-            retorno = eletrodomesticoService.incluir(eletrodomestico);
+            if (eletrodomestico.getDataHoraInclusao() != null || eletrodomestico.getDataHoraUltimaAlteracao() != null) {
+                mensagem = new StringBuilder();
+                mensagem.append("Campos de controle (dataHoraInclusao, dataHoraUltimaAlteracao) não devem ser informados manualmente no arquivo json.");
+
+                status = Status.BAD_REQUEST;
+            } else {
+                retorno = eletrodomesticoService.incluir(eletrodomestico);
+            }
         } catch (ConstraintViolationException ex) {
             mensagem = new StringBuilder();
             mensagem.append("Falha ao incluir registro. Motivo = ");

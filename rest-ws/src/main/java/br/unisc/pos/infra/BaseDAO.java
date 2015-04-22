@@ -1,6 +1,7 @@
 package br.unisc.pos.infra;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -57,6 +58,8 @@ public class BaseDAO<E extends BaseEntity<K>, K> {
     }
 
     public E incluir(final E entity) {
+        entity.setDataHoraInclusao(Calendar.getInstance().getTime());
+        
         entityManager.persist(entity);
         entityManager.flush();
 
@@ -64,6 +67,8 @@ public class BaseDAO<E extends BaseEntity<K>, K> {
     }
 
     public E alterar(final E entity) {
+        entity.setDataHoraUltimaAlteracao(Calendar.getInstance().getTime());
+        
         entityManager.merge(entity);
         entityManager.flush();
 
